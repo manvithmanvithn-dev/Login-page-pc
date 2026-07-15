@@ -123,4 +123,287 @@
             width: 100%;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            padding
+            padding: 16px 18px;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .control-input:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .fault-feedback {
+            color: #f43f5e;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+            padding-left: 2px;
+        }
+
+        /* Action Trigger Button */
+        .btn-prime {
+            width: 100%;
+            background: var(--accent-glow);
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(100, 102, 241, 0.25);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .btn-prime:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.35);
+        }
+
+        .btn-prime:active { transform: translateY(0); }
+
+        /* --- STAGE 2: PREMIUM ADMINISTRATIVE SYSTEM MODULE --- */
+        .admin-layout-panel {
+            display: none;
+            opacity: 0;
+            width: 100%;
+            max-width: 950px;
+            background: rgba(10, 10, 18, 0.75);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 40px;
+            z-index: 10;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9), 0 0 60px rgba(168, 85, 247, 0.03);
+            transform: scale(0.97) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .panel-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .live-pulse-badge {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #4ade80;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        /* Administrative Info Cards Grid */
+        .stats-cluster {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-node {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+        }
+        .stat-node::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background: var(--accent-glow); border-radius: 16px 0 0 16px;
+        }
+
+        .stat-tag {
+            color: var(--text-dim);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+
+        .stat-data {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* High-Definition Terminal Streams Console */
+        .terminal-stream-wrapper {
+            background: #040406;
+            border: 1px solid var(--border-neon);
+            border-radius: 14px;
+            padding: 24px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.88rem;
+            color: #c084fc;
+            height: 240px;
+            overflow-y: auto;
+            line-height: 1.6;
+            text-align: left;
+            box-shadow: inset 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .stream-row { margin-bottom: 6px; }
+        .data-ok { color: #38bdf8; }
+        .data-alert { color: #fb7185; }
+
+        /* Smooth UI Shaking Function */
+        @keyframes uiDistortion {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .ui-error-shake { animation: uiDistortion 0.35s ease; }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-sphere sphere-1"></div>
+    <div class="ambient-sphere sphere-2"></div>
+
+    <div class="glass-auth-card" id="gateWindow">
+        <div class="gateway-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </div>
+        <h2>Login to Admin Panel</h2>
+        <p class="gateway-subtitle">Secure authorization root gateway // production track</p>
+
+        <div>
+            <div class="field-container">
+                <label for="uidInput">Administrative User</label>
+                <input type="text" id="uidInput" class="control-input" value="root_admin" autocomplete="off">
+            </div>
+
+            <div class="field-container">
+                <label for="passphraseInput">Secret Key Phrase</label>
+                <input type="password" id="passphraseInput" class="control-input" placeholder="••••" oninput="interceptKeyInput(this)" autocomplete="off">
+                <div class="fault-feedback" id="faultAlert">Security clearance rejected. Invalid signature key.</div>
+            </div>
+
+            <button class="btn-prime" onclick="validateIdentityClearance()">Request Authentication</button>
+        </div>
+    </div>
+
+    <div class="admin-layout-panel" id="adminMainboard">
+        <div class="panel-nav">
+            <div>
+                <h1 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; color: #fff;">Admin Command Center</h1>
+                <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 4px;">Mainframe virtualization terminal // core session allocated</p>
+            </div>
+            <div class="live-pulse-badge">● INFRASTRUCTURE ONLINE</div>
+        </div>
+
+        <div class="stats-cluster">
+            <div class="stat-node">
+                <div class="stat-tag">Core Health Index</div>
+                <div class="stat-data" style="color: #4ade80;">99.98%</div>
+            </div>
+            <div class="stat-node">
+                <div class="stat-tag">Active Requests</div>
+                <div class="stat-data">14,892 / min</div>
+            </div>
+            <div class="stat-node">
+                <div class="stat-tag">Deployment Status</div>
+                <div class="stat-data" style="color: #a855f7;">Secure Link Live</div>
+            </div>
+        </div>
+
+        <h3 style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 14px;">System Execution Stream Logs</h3>
+        <div class="terminal-stream-wrapper" id="consoleFeeds">
+            </div>
+    </div>
+
+    <script>
+        // Automatic runtime submission tracking
+        function interceptKeyInput(element) {
+            if (element.value === '0296') {
+                validateIdentityClearance();
+            }
+        }
+
+        function validateIdentityClearance() {
+            const secretField = document.getElementById('passphraseInput');
+            const alertBox = document.getElementById('faultAlert');
+            const gatewayView = document.getElementById('gateWindow');
+            const mainboardView = document.getElementById('adminMainboard');
+
+            if (secretField.value === '0296') {
+                alertBox.style.display = 'none';
+                
+                // Beautiful fluid exit animation for login card
+                gatewayView.style.opacity = '0';
+                gatewayView.style.transform = 'scale(0.94) translateY(-20px)';
+                
+                setTimeout(() => {
+                    gatewayView.style.display = 'none';
+                    
+                    // Seamless entry logic for the admin dashboard
+                    mainboardView.style.display = 'block';
+                    setTimeout(() => {
+                        mainboardView.style.opacity = '1';
+                        mainboardView.style.transform = 'scale(1) translateY(0)';
+                        streamDiagnosticLogs();
+                    }, 50);
+                }, 400);
+            } else if (secretField.value.length >= 4) {
+                // UI Distortion shake effect for wrong passwords
+                alertBox.style.display = 'block';
+                gatewayView.classList.add('ui-error-shake');
+                secretField.value = '';
+                secretField.focus();
+                setTimeout(() => gatewayView.classList.remove('ui-error-shake'), 450);
+            }
+        }
+
+        // Simulates advanced administrative server kernel boot logs
+        function streamDiagnosticLogs() {
+            const feedBox = document.getElementById('consoleFeeds');
+            const runtimeProcedures = [
+                "Initializing local node security handshake sequences...",
+                "Bypassing active session runtime allocation nodes... <span class='data-ok'>[RESOLVED]</span>",
+                "Mapping administrative variables matrices straight to view parameters...",
+                "Allocating pipeline buffers... <span class='data-ok'>[OK]</span>",
+                "INTERCEPTED: Birthday event core signature detected in stack layer.",
+                "Halting dummy procedures. Loading production assets... <span class='data-ok'>[100%]</span>",
+                "Executing automated celebration protocols...",
+                "-------------------------------------------------------------------------",
+                "<span class='data-ok'>[SUCCESS] Systems Authorized. Welcome to your administrative suite!</span>",
+                "<span class='data-ok'>[SUCCESS] Happy Birthday! May your day be defined by excellence and joy.</span>",
+                "-------------------------------------------------------------------------"
+            ];
+
+            let step = 0;
+            function writeLogLine() {
+                if (step < runtimeProcedures.length) {
+                    const row = document.createElement('div');
+                    row.className = 'stream-row';
+                    row.innerHTML = `[sys_kernel] ${runtimeProcedures[step]}`;
+                    feedBox.appendChild(row);
+                    feedBox.scrollTop = feedBox.scrollHeight;
+                    step++;
+                    setTimeout(writeLogLine, 350);
+                }
+            }
+            writeLogLine();
+        }
+    </script>
+</body>
+</html>
