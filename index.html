@@ -3,109 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Portal // Access Gate</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Enterprise Portal // Gateway Access</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Ambient Cyber Blur Elements */
+        .glow-orb {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: #3b82f6;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 1;
+            pointer-events: none;
+            top: -50px;
+            left: -50px;
+        }
+
+        /* Main Container: Absolute Luxury Glassmorphism */
+        .auth-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .header-section {
+            margin-bottom: 30px;
+        }
+
+        .icon-shield {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #3b82f6;
+            margin: 0 auto 16px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* High-End Form Fields */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            padding-left: 2px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: #3b82f6;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: none;
+            padding-left: 2px;
+        }
+
+        /* Utilities */
+        .utility-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-bottom: 28px;
+        }
+
+        .remember-me {
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .forgot-pass {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-pass:hover {
+            color: #3b82f6;
+        }
+
+        /* Action Button */
+        .action-button {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #ffffff;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+        }
+
+        /* Third-Party Login Options */
+        .divider {
+            font-size: 0.7rem;
+            color: #4b5563;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 28px 0 16px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        @keyframes hardwareShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake-effect {
+            animation: hardwareShake 0.35s ease;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="mesh-grid"></div>
-    <div class="glow-sphere sphere-alpha"></div>
-    <div class="glow-sphere sphere-beta"></div>
+    <div class="glow-orb"></div>
 
-    <div class="auth-wrapper">
-        <div class="auth-header">
-            <div class="security-shield">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="auth-card" id="mainContainer">
+        <div class="header-section">
+            <div class="icon-shield">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
             </div>
             <h2>System Gateway</h2>
-            <p class="auth-subtitle">Provide clearance credentials to initialize interface</p>
+            <p class="subtitle">Provide clearance credentials to initialize interface</p>
         </div>
 
-        <div class="form-container">
-            <div class="input-track">
-                <input type="text" id="userUID" placeholder=" " required value="frostpup">
-                <label for="userUID">Identity / UID</label>
-                <span class="track-indicator"></span>
+        <div>
+            <div class="input-group">
+                <label for="uidField">Identity / UID</label>
+                <input type="text" id="uidField" class="input-field" value="frostpup" autocomplete="off">
             </div>
 
-            <div class="input-track">
-                <input type="password" id="passKey" placeholder=" " required oninput="evaluateKeySequence(this)">
-                <label for="passKey">Security Key / PIN</label>
-                <span class="track-indicator"></span>
-                <div class="error-node" id="errorFeedback">Clearance code rejection triggered.</div>
+            <div class="input-group">
+                <label for="pinField">Security Key / PIN</label>
+                <input type="password" id="pinField" class="input-field" placeholder="••••" oninput="verifyInputSequence(this)" autocomplete="off">
+                <div class="error-message" id="errorFeedback">Clearance code rejection triggered.</div>
             </div>
 
-            <div class="form-utility">
-                <label class="toggle-control">
-                    <input type="checkbox" checked>
-                    <span class="control-box"></span>
-                    Keep session active
+            <div class="utility-row">
+                <label class="remember-me">
+                    <input type="checkbox" checked> Keep session active
                 </label>
-                <a href="#" class="recovery-trigger">Forgot Security Key?</a>
+                <a href="#" class="forgot-pass">Forgot Security Key?</a>
             </div>
 
-            <button class="submit-action" id="gateTrigger" onclick="processAccessRequest()">
-                <span class="label-text" id="actionText">Authorize Terminal</span>
-                <div class="loading-ring" id="actionSpinner"></div>
-            </button>
+            <button class="action-button" onclick="executeAuthentication()">Authorize Terminal</button>
         </div>
 
-        <div class="federated-divider">
-            <span>secure third-party authentication</span>
-        </div>
+        <div class="divider">secure third-party authentication</div>
 
-        <div class="federated-grid">
-            <button class="fed-provider">
-                <span class="provider-badge google-spec"></span> Google
-            </button>
-            <button class="fed-provider">
-                <span class="provider-badge apple-spec"></span> Apple
-            </button>
+        <div class="social-buttons">
+            <button class="social-btn">Google</button>
+            <button class="social-btn">Apple</button>
         </div>
     </div>
 
     <script>
-        function evaluateKeySequence(element) {
+        function verifyInputSequence(element) {
             if (element.value === '0296') {
-                processAccessRequest();
+                executeAuthentication();
             }
         }
 
-        function processAccessRequest() {
-            const pin = document.getElementById('passKey');
+        function executeAuthentication() {
+            const pin = document.getElementById('pinField');
             const error = document.getElementById('errorFeedback');
-            const text = document.getElementById('actionText');
-            const spinner = document.getElementById('actionSpinner');
-            const btn = document.getElementById('gateTrigger');
+            const container = document.getElementById('mainContainer');
 
-            // Hardcoded structural check for the private code
-            if (pin.value === '0296' || pin.value.length >= 4) {
-                if (pin.value === '0296') {
-                    error.style.display = 'none';
-                    text.style.opacity = '0';
-                    spinner.style.display = 'block';
-                    btn.classList.add('processing-state');
-
-                    setTimeout(() => {
-                        document.querySelector('.auth-wrapper').style.opacity = '0';
-                        document.querySelector('.auth-wrapper').style.transform = 'scale(0.96) translateY(-10px)';
-                        
-                        setTimeout(() => {
-                            window.location.href = "index.html";
-                        }, 500);
-                    }, 1200);
-                } else {
-                    // Trigger standard error routine for wrong attempts
-                    error.style.display = 'block';
-                    document.querySelector('.auth-wrapper').classList.add('hardware-shake');
-                    pin.value = '';
-                    pin.focus();
-                    setTimeout(() => {
-                        document.querySelector('.auth-wrapper').classList.remove('hardware-shake');
-                    }, 400);
-                }
+            if (pin.value === '0296') {
+                error.style.display = 'none';
+                container.style.opacity = '0';
+                container.style.transform = 'scale(0.96) translateY(-10px)';
+                container.style.transition = 'all 0.4s ease';
+                
+                setTimeout(() => {
+                    // Redirects straight to your core birthday page
+                    window.location.href = "index.html";
+                }, 400);
+            } else if (pin.value.length >= 4) {
+                error.style.display = 'block';
+                container.classList.add('shake-effect');
+                pin.value = '';
+                pin.focus();
+                setTimeout(() => {
+                    container.classList.remove('shake-effect');
+                }, 400);
             }
         }
     </script>
