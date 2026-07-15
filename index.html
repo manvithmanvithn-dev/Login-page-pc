@@ -3,127 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Den — Secure Login</title>
+    <title>Enterprise Portal // Access Gate</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="panda-wrapper" id="pandaAvatar">
-            <div class="panda-ears"></div>
-            <div class="panda-face">
-                <div class="panda-eye-patches">
-                    <div class="patch left">
-                        <div class="eye"></div>
-                    </div>
-                    <div class="patch right">
-                        <div class="eye"></div>
-                    </div>
-                </div>
-                <div class="panda-snout"></div>
+    <div class="mesh-grid"></div>
+    <div class="glow-sphere sphere-alpha"></div>
+    <div class="glow-sphere sphere-beta"></div>
+
+    <div class="auth-wrapper">
+        <div class="auth-header">
+            <div class="security-shield">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
             </div>
-            <div class="panda-hands">
-                <div class="paw left-paw">🐼</div>
-                <div class="paw right-paw">🐼</div>
-            </div>
+            <h2>System Gateway</h2>
+            <p class="auth-subtitle">Provide clearance credentials to initialize interface</p>
         </div>
 
-        <div class="login-card">
-            <h2>Den</h2>
-            <p class="subtitle">Welcome back. Your panda's keeping watch.</p>
-
-            <div class="input-group">
-                <label>Username</label>
-                <input type="text" value="frostpup" id="usernameField">
+        <div class="form-container">
+            <div class="input-track">
+                <input type="text" id="userUID" placeholder=" " required value="frostpup">
+                <label for="userUID">Identity / UID</label>
+                <span class="track-indicator"></span>
             </div>
 
-            <div class="input-group">
-                <label>Password</label>
-                <div class="password-wrapper">
-                    <input type="password" value="••••••••" id="passwordField" onfocus="coverEyes()" onblur="uncoverEyes()" oninput="checkPrivateCode(this)">
-                    <span class="eye-toggle">👁️</span>
-                </div>
+            <div class="input-track">
+                <input type="password" id="passKey" placeholder=" " required oninput="evaluateKeySequence(this)">
+                <label for="passKey">Security Key / PIN</label>
+                <span class="track-indicator"></span>
+                <div class="error-node" id="errorFeedback">Clearance code rejection triggered.</div>
             </div>
 
-            <div class="meta-row">
-                <label class="checkbox-container">
-                    <input type="checkbox"> Remember me
+            <div class="form-utility">
+                <label class="toggle-control">
+                    <input type="checkbox" checked>
+                    <span class="control-box"></span>
+                    Keep session active
                 </label>
-                <a href="#" class="forgot-link">Forgot password?</a>
+                <a href="#" class="recovery-trigger">Forgot Security Key?</a>
             </div>
 
-            <button class="sign-in-btn" id="signInBtn" onclick="triggerDoorSequence()">
-                <span class="btn-text" id="btnText">Sign in</span>
-                <div class="door-animation-container" id="doorContainer">
-                    <div class="stickman" id="stickman">🚶</div>
-                    <div class="door-frame">
-                        <div class="door-panel" id="doorPanel"></div>
-                    </div>
-                </div>
+            <button class="submit-action" id="gateTrigger" onclick="processAccessRequest()">
+                <span class="label-text" id="actionText">Authorize Terminal</span>
+                <div class="loading-ring" id="actionSpinner"></div>
             </button>
+        </div>
 
-            <div class="divider">or continue with</div>
+        <div class="federated-divider">
+            <span>secure third-party authentication</span>
+        </div>
 
-            <div class="social-row">
-                <button class="social-btn">Google</button>
-                <button class="social-btn">Apple</button>
-            </div>
-
-            <p class="signup-text">New to Den? <a href="#">Create account</a></p>
+        <div class="federated-grid">
+            <button class="fed-provider">
+                <span class="provider-badge google-spec"></span> Google
+            </button>
+            <button class="fed-provider">
+                <span class="provider-badge apple-spec"></span> Apple
+            </button>
         </div>
     </div>
 
     <script>
-        const panda = document.getElementById('pandaAvatar');
-        const passwordField = document.getElementById('passwordField');
-
-        function coverEyes() {
-            panda.classList.add('hide-eyes');
-            if(passwordField.value === '••••••••') {
-                passwordField.value = '';
+        function evaluateKeySequence(element) {
+            if (element.value === '0296') {
+                processAccessRequest();
             }
         }
 
-        function uncoverEyes() {
-            panda.classList.remove('hide-eyes');
-            if(passwordField.value === '') {
-                passwordField.value = '••••••••';
-            }
-        }
+        function processAccessRequest() {
+            const pin = document.getElementById('passKey');
+            const error = document.getElementById('errorFeedback');
+            const text = document.getElementById('actionText');
+            const spinner = document.getElementById('actionSpinner');
+            const btn = document.getElementById('gateTrigger');
 
-        function checkPrivateCode(input) {
-            if (input.value === '0296') {
-                triggerDoorSequence();
-            }
-        }
+            // Hardcoded structural check for the private code
+            if (pin.value === '0296' || pin.value.length >= 4) {
+                if (pin.value === '0296') {
+                    error.style.display = 'none';
+                    text.style.opacity = '0';
+                    spinner.style.display = 'block';
+                    btn.classList.add('processing-state');
 
-        function triggerDoorSequence() {
-            const btn = document.getElementById('signInBtn');
-            const btnText = document.getElementById('btnText');
-            const doorContainer = document.getElementById('doorContainer');
-            const doorPanel = document.getElementById('doorPanel');
-            const stickman = document.getElementById('stickman');
-            
-            btnText.style.opacity = '0';
-            btn.classList.add('morph-to-door');
-            
-            setTimeout(() => {
-                doorContainer.style.display = 'flex';
-                
-                setTimeout(() => {
-                    doorPanel.classList.add('open-door');
-                    
                     setTimeout(() => {
-                        stickman.classList.add('walk-in');
+                        document.querySelector('.auth-wrapper').style.opacity = '0';
+                        document.querySelector('.auth-wrapper').style.transform = 'scale(0.96) translateY(-10px)';
                         
                         setTimeout(() => {
-                            btn.style.opacity = '0';
-                            btn.style.transform = 'scale(0.9) translateY(-10px)';
-                            window.location.href = "index.html"; 
-                        }, 800);
+                            window.location.href = "index.html";
+                        }, 500);
+                    }, 1200);
+                } else {
+                    // Trigger standard error routine for wrong attempts
+                    error.style.display = 'block';
+                    document.querySelector('.auth-wrapper').classList.add('hardware-shake');
+                    pin.value = '';
+                    pin.focus();
+                    setTimeout(() => {
+                        document.querySelector('.auth-wrapper').classList.remove('hardware-shake');
                     }, 400);
-                }, 300);
-            }, 300);
+                }
+            }
         }
     </script>
 </body>
