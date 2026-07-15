@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Login // Admin Control Panel</title>
+    <title>Core Mainframe // Administrative Gateway</title>
     <style>
         :root {
-            --bg-deep: #050508;
-            --bg-surface: #0c0c14;
-            --bg-card: rgba(15, 15, 27, 0.7);
-            --accent-purple: #a855f7;
-            --accent-purple-glow: rgba(168, 85, 247, 0.4);
-            --text-main: #f8fafc;
-            --text-muted: #64748b;
-            --border-purple: rgba(168, 85, 247, 0.2);
-            --border-subtle: rgba(255, 255, 255, 0.05);
+            --bg-deep: #030305;
+            --bg-glass: rgba(13, 11, 22, 0.65);
+            --border-neon: rgba(168, 85, 247, 0.25);
+            --accent-glow: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            --text-bright: #f8fafc;
+            --text-dim: #64748b;
         }
 
         * {
@@ -24,176 +21,106 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-deep);
-            color: var(--text-main);
+            color: var(--text-bright);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Ambient Purple Cyber Glow Orbs */
-        .glow-orb {
+        /* Ambient Fluid Neon Background Dynamics */
+        .ambient-sphere {
             position: fixed;
-            width: 450px;
-            height: 450px;
             border-radius: 50%;
-            background: var(--accent-purple);
-            filter: blur(160px);
-            opacity: 0.12;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            filter: blur(140px);
+            opacity: 0.15;
             z-index: 1;
             pointer-events: none;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
         }
-        .orb-left { top: -100px; left: -100px; }
-        .orb-right { bottom: -100px; right: -100px; }
+        .sphere-1 { width: 400px; height: 400px; top: -100px; left: -100px; }
+        .sphere-2 { width: 450px; height: 450px; bottom: -100px; right: -100px; animation-delay: -4s; }
 
-        /* --- STAGE 1: PREMIUM LOGIN ARCHITECTURE --- */
-        .login-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--border-purple);
-            border-radius: 20px;
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.12; }
+            100% { transform: scale(1.15) translate(20px, 20px); opacity: 0.18; }
+        }
+
+        /* --- STAGE 1: LUXURY GLASS AUTH INTERFACE --- */
+        .glass-auth-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-neon);
+            border-radius: 24px;
             width: 100%;
             max-width: 420px;
-            padding: 45px 35px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.05);
+            padding: 48px 40px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
             z-index: 10;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .icon-lock {
-            width: 54px;
-            height: 54px;
-            background: rgba(168, 85, 247, 0.1);
-            border: 1px solid var(--border-purple);
-            border-radius: 14px;
+        .gateway-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(168, 85, 247, 0.08);
+            border: 1px solid var(--border-neon);
+            border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--accent-purple);
-            margin: 0 auto 20px;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+            margin: 0 auto 24px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
         }
 
         h2 {
-            font-size: 1.6rem;
-            font-weight: 700;
+            font-size: 1.7rem;
+            font-weight: 800;
             letter-spacing: -0.02em;
             margin-bottom: 8px;
-            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            color: var(--text-muted);
+        .gateway-subtitle {
+            color: var(--text-dim);
             font-size: 0.88rem;
-            text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 36px;
+            line-height: 1.4;
         }
 
-        .input-group {
+        /* Form Engine Fields */
+        .field-container {
             position: relative;
             margin-bottom: 24px;
+            text-align: left;
         }
 
-        .input-group label {
+        .field-container label {
             display: block;
             color: #a855f7;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             margin-bottom: 8px;
             padding-left: 2px;
         }
 
-        .input-field {
+        .control-input {
             width: 100%;
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-subtle);
-            padding: 15px 18px;
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.25s ease;
-        }
-
-        .input-field:focus {
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 15px var(--accent-purple-glow);
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 0.8rem;
-            margin-top: 6px;
-            display: none;
-            font-weight: 500;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, #a855f7, #7e22ce);
-            color: #ffffff;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.25);
-            transition: all 0.25s ease;
-            margin-top: 10px;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.4);
-        }
-
-        /* --- STAGE 2: PROFESSIONAL ADMIN PANEL --- */
-        .admin-dashboard {
-            display: none;
-            opacity: 0;
-            width: 100%;
-            max-width: 1000px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 18px;
-            padding: 35px;
-            z-index: 10;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: scale(0.98) translateY(15px);
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .status-badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #10b981;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-
-        /* Grid Statistics Configuration */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px,
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding
